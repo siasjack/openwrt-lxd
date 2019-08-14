@@ -97,6 +97,18 @@ create_image()
 	lxc launch $ALIAS -c security.privileged=true <name>
 	or:
 	sh launch.sh <name>
+	
+	# to goin openwrt ash
+	lxc exec <name> ash
+
+	#to stop a container
+	lxc stop <name>
+
+	# show all lxc container
+	lxc list
+	
+	#del lxc containers
+	lxc delete <name>
 END
 	cat <<-END >$IMAGE_DIR/import.sh
 	#!/bin/sh
@@ -106,8 +118,11 @@ END
 	#!/bin/sh
 	lxc launch $ALIAS -c security.privileged=true \$1
 END
+	chmod 777 $IMAGE_DIR/import.sh
+	chmod 777 $IMAGE_DIR/launch.sh
 	echo ls -l $IMAGE_DIR
 	ls -l $IMAGE_DIR
+	cat $IMAGE_DIR/README
 }
 
 download_rootfs
